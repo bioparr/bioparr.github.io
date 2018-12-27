@@ -6,6 +6,14 @@
     <title>Indigo demo</title>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="libindigo.js"></script>
+	<script>
+	  Module.onRuntimeInitialized = async _ => {
+	    const api = {
+	      version: Module.cwrap('_indigoVersion', 'number', []),
+	    };
+	    console.log(api.version());
+	  };
+	</script>
     <script type="text/javascript">
       $( window ).on( "load", function() {
 
