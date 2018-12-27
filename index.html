@@ -10,12 +10,12 @@
       $( window ).on( "load", function() {
 
         setTimeout(function() { 
-           var ver = Module.ccall('indigoVersion', 'string', []);
+           var ver = Module.ccall('_indigoVersion', 'string', []);
            $("div.version").text(ver);
            var m = 'c1ccccc1N';
            $("div.mol").text(m);
-           var mol = Module.ccall('indigoLoadMoleculeFromString', 'number', ['string'], [m]);
-           var w = Module.ccall('indigoMolecularWeight', 'number', ['number'], [mol]);
+           var mol = Module.ccall('_indigoLoadMoleculeFromString', 'number', ['string'], [m]);
+           var w = Module.ccall('_indigoMolecularWeight', 'number', ['number'], [mol]);
            $("div.mass").text(w);
         }, 1000);
       });
