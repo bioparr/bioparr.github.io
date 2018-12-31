@@ -9,7 +9,7 @@
 	<script>
 	  Module.onRuntimeInitialized = async _ => {
 	    const api = {
-	      version: Module.cwrap('indigoVersion', 'number', []),
+	      version: Module.cwrap('indigoVersion', 'string', []),
 	    };
 	    console.log(api.version());
 	  };
