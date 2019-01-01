@@ -18,8 +18,7 @@
       $( window ).on( "load", function() {
 
         setTimeout(function() { 
-           var ver = Module.ccall('indigoVersion', 'string');
-           $("div.version").text(ver);
+           $("div.version").text(api.version());
            var m = 'c1ccccc1N';
            $("div.mol").text(m);
            var mol = Module.ccall('indigoLoadMoleculeFromString', 'number', ['string'], [m]);
