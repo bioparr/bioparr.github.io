@@ -18,7 +18,7 @@
       $( window ).on( "load", function() {
 
         setTimeout(function() { 
-           var ver = Module.ccall('indigoVersion', 'string', []);
+           var ver = Module.ccall('indigoVersion', 'string');
            $("div.version").text(ver);
            var m = 'c1ccccc1N';
            $("div.mol").text(m);
