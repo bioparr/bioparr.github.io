@@ -17,14 +17,13 @@
     <script type="text/javascript">
       $( window ).on( "load", function() {
 
-        setTimeout(function() { 
-           $("div.version").text(api.version());
+        var result = await Module.onRuntimeInitialized
+           $("div.version").text(Module.ccall('indigoVersion', 'string'));
            var m = 'c1ccccc1N';
            $("div.mol").text(m);
            var mol = Module.ccall('indigoLoadMoleculeFromString', 'number', ['string'], [m]);
            var w = Module.ccall('indigoMolecularWeight', 'number', ['number'], [mol]);
            $("div.mass").text(w);
-        }, 1000);
       });
     </script>
   </head>
