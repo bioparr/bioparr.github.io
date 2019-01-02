@@ -7,6 +7,13 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="libindigo.js"></script>
 	<script>
+	Module.ready = new Promise(function(resolve, reject) {
+	  addOnPreMain(function() {
+	    var api = {
+	      sayHello: 'hello'
+	    };
+	    resolve(api);
+	  })
 	  Module.onRuntimeInitialized = async _ => {
 	    const api = {
 	      version: Module.cwrap('indigoVersion', 'string', []),
@@ -17,7 +24,7 @@
     <script type="text/javascript">
       $( window ).on( "load", function() {
 
-        var result = await Module.onRuntimeInitialized
+        var result = await Module.ready();
            $("div.version").text(Module.ccall('indigoVersion', 'string'));
            var m = 'c1ccccc1N';
            $("div.mol").text(m);
