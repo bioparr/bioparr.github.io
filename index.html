@@ -7,14 +7,9 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="libindigo.js"></script>
 	<script>
-	Module.ready = new Promise(function(resolve, reject) {
-	  addOnPreMain(function() {
-	    var api = {
-	      sayHello: 'hello'
-	    };
-	    resolve(api);
-	  });
-	});
+	Module.ready = return new Promise(resolve => {
+	  addOnPreMain(()  => { resolve("Ready") })
+	    });
 	  Module.onRuntimeInitialized = async _ => {
 	    const api = {
 	      version: Module.cwrap('indigoVersion', 'string', []),
