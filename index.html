@@ -7,9 +7,14 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="libindigo.js"></script>
 	<script>
-	Module.ready = return new Promise(resolve => {
-	  addOnPreMain(()  => { resolve("Ready") })
-	    });
+var __READY_RESOLVE__,
+    __READY__ = new Promise(function(resolve) {__READY_RESOLVE__ = resolve});
+
+Module.ready = function() {return __READY__}
+
+addOnPreMain(function() {
+  __READY_RESOLVE__()
+});
 	  Module.onRuntimeInitialized = async _ => {
 	    const api = {
 	      version: Module.cwrap('indigoVersion', 'string', []),
