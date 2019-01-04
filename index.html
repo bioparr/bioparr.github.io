@@ -14,7 +14,7 @@
 	    };
 	    resolve(api);
 	  });
-	};
+	});
 	  Module.onRuntimeInitialized = async _ => {
 	    const api = {
 	      version: Module.cwrap('indigoVersion', 'string', []),
