@@ -28,7 +28,7 @@ function loadIndigo()
 </script>
 
     <script type="text/javascript">
-      $( window ).on( "load", function() {
+      $( window ).on( "load", async function() {
 
 	   var result = await loadIndigo();
            $("div.version").text(result);
