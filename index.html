@@ -6,27 +6,32 @@
     <title>Indigo demo</title>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="libindigo.js"></script>
-	<script>
-var __READY_RESOLVE__,
-    __READY__ = new Promise(function(resolve) {__READY_RESOLVE__ = resolve});
 
-Module.ready = function() {return __READY__}
+<script>
+function loadIndigo()
+{
+	return new Promise(function(resolve, reject)
+	{
 
-addOnPreMain(function() {
-  __READY_RESOLVE__()
-});
 	  Module.onRuntimeInitialized = async _ => {
 	    const api = {
-	      version: Module.cwrap('indigoVersion', 'string', []),
+	      version: Module.cwrap('indigoVersion', 'string', [])
 	    };
-	    console.log(api.version());
+	    return resolve(api.version());
 	  };
-	</script>
+
+	  Module.onAbort = async _ => {
+		reject(Error('There was a network error.'));
+	  };
+	});
+}
+</script>
+
     <script type="text/javascript">
       $( window ).on( "load", function() {
 
-        var result = await Module.ready();
-           $("div.version").text(Module.ccall('indigoVersion', 'string'));
+	   var result = await loadIndigo();
+           $("div.version").text(result);
            var m = 'c1ccccc1N';
            $("div.mol").text(m);
            var mol = Module.ccall('indigoLoadMoleculeFromString', 'number', ['string'], [m]);
