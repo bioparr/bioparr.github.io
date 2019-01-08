@@ -37,9 +37,11 @@ function loadIndigo()
            var mol = Module.ccall('indigoLoadMoleculeFromString', 'number', ['string'], [m]);
            var w = Module.ccall('indigoMolecularWeight', 'number', ['number'], [mol]);
            $("div.mass").text(w);
-	   Module.ccall('indigoSetOption', 'string', 'string', "render-output-format", "png");
+	   Module.ccall('indigoSetOption', null, ['string', 'string'], ['render-output-format', 'png']);
            var molfile = Module.ccall('indigoMolfile', 'string', ['number'], [mol]);
            $("div.molfile").text(molfile);
+	   Module.ccall('indigoRenderToFile', null, ['number', 'string'], [mol,'query1.png']);
+
       });
     </script>
   </head>
