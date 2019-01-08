@@ -25,6 +25,25 @@ function loadIndigo()
 	  };
 	});
 }
+
+
+/*
+function testFingerprints ()
+{
+
+   int mol = indigoLoadMoleculeFromString("C1C=CC=CC=1N(C)CO");
+   int qmol = indigoLoadQueryMoleculeFromString("C1C=CC=CC=1N(C)CO");
+   int fp = indigoFingerprint(mol, "sub-res");
+   int qfp = indigoFingerprint(qmol, "sub-res");
+   char *buf;
+   int bufsize;
+
+   printf("%s\n", indigoToString(fp));
+   printf("%s\n", indigoToString(qfp));
+   indigoToBuffer(fp, &buf, &bufsize);
+   printf("size=%d\n", bufsize);
+}
+*/
 </script>
 
     <script type="text/javascript">
@@ -37,10 +56,27 @@ function loadIndigo()
            var mol = Module.ccall('indigoLoadMoleculeFromString', 'number', ['string'], [m]);
            var w = Module.ccall('indigoMolecularWeight', 'number', ['number'], [mol]);
            $("div.mass").text(w);
-	   Module.ccall('indigoSetOption', null, ['string', 'string'], ['render-output-format', 'png']);
            var molfile = Module.ccall('indigoMolfile', 'string', ['number'], [mol]);
            $("div.molfile").text(molfile);
-	   Module.ccall('indigoRenderToFile', null, ['number', 'string'], [mol,'query1.png']);
+//	   Module.ccall('indigoSetOption', null, ['string', 'string'], ['render-output-format', 'png']);
+//	   Module.ccall('indigoRenderToFile', null, ['number', 'string'], [mol,'query1.png']);
+
+	//testFingerprints 
+           const indigo = {
+	      LoadMolecule: Module.cwrap('indigoLoadMoleculeFromString', 'number', ['string']),
+	      LoadQueryMolecule: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['string']),
+              Fingerprint: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['number','string']),
+              Molfile: Module.cwrap('indigoMolfile','string', ['number']),
+	      ToString:	Module.cwrap('indigoToString','string', ['number'])
+	    };
+
+	var mol = indigo.LoadMolecule("C1C=CC=CC=1N(C)CO");
+	var qmol = indigo.LoadQueryMolecule("C1C=CC=CC=1N(C)CO");
+	var fp = indigo.Fingerprint([mol, "sub-res"]);
+	var qfp = indigoFingerprint([qmol, "sub-res"]);
+        $("div.t1").text(indigo.ToString(fp));
+        $("div.t2").text(indigo.ToString(qfp));
+
 
       });
     </script>
@@ -56,5 +92,8 @@ function loadIndigo()
     <div class="mass"></div>
     <h2>Molecule file</h2>
     <div class="molfile"></div>
+    <h2>TestFingerprints</h2>
+    <div class="t1"></div>
+    <div class="t2"></div>
   </body>
 </html>
