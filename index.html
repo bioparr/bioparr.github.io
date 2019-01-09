@@ -65,7 +65,7 @@ function testFingerprints ()
            const indigo = {
 	      LoadMolecule: Module.cwrap('indigoLoadMoleculeFromString', 'number', ['string']),
 	      LoadQueryMolecule: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['string']),
-              Fingerprint: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['number','string']),
+              Fingerprint: Module.cwrap('indigoFingerprint', 'number', ['number','string']),
               Molfile: Module.cwrap('indigoMolfile','string', ['number']),
 	      ToString:	Module.cwrap('indigoToString','string', ['number'])
 	    };
