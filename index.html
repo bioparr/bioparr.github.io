@@ -71,9 +71,15 @@ function testFingerprints ()
 	    };
 
 	var mol = indigo.LoadMolecule("C1C=CC=CC=1N(C)CO");
+	console.log(mol);
 	var qmol = indigo.LoadQueryMolecule("C1C=CC=CC=1N(C)CO");
+	console.log(qmol);
 	var fp = indigo.Fingerprint([mol, "sub-res"]);
+	console.log(fp);
 	var qfp = indigo.Fingerprint([qmol, "sub-res"]);
+	console.log(qfp);
+	console.log(indigo.ToString(fp));
+	console.log(indigo.ToString(qfp));
         $("div.t1").text(indigo.ToString(fp));
         $("div.t2").text(indigo.ToString(qfp));
 
