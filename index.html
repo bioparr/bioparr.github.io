@@ -74,9 +74,9 @@ function testFingerprints ()
 	console.log(mol);
 	var qmol = indigo.LoadQueryMolecule("C1C=CC=CC=1N(C)CO");
 	console.log(qmol);
-	var fp = indigo.Fingerprint([mol, "sub-res"]);
+	var fp = indigo.Fingerprint(mol, "sub-res");
 	console.log(fp);
-	var qfp = indigo.Fingerprint([qmol, "sub-res"]);
+	var qfp = indigo.Fingerprint(qmol, "sub-res");
 	console.log(qfp);
 	console.log(indigo.ToString(fp));
 	console.log(indigo.ToString(qfp));
