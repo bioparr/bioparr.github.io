@@ -34,7 +34,7 @@ function loadIndigo()
       // Standard XHR to load an file
       var request = new XMLHttpRequest();
       request.open('GET', url);
-      request.responseType = 'blob';
+      request.responseType = 'arraybuffer';
       // When the request loads, check whether it was successful
       request.onload = function() {
         if (request.status === 200) {
@@ -148,8 +148,8 @@ void testSimilarity (void)
   LoadFile('r1-2ap.mol').then(function(response) {
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
-    var fileURL = window.URL.createObjectURL(response);
-    console.log('file url' + fileURL);
+ //   var fileURL = window.URL.createObjectURL(response);
+    console.log('file url' + response.toString());
 
     // The second runs when the promise
     // is rejected, and logs the Error specified with the reject() method.
