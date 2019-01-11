@@ -26,6 +26,34 @@ function loadIndigo()
 	});
 }
 
+  function LoadFile(url) {
+    // Create new promise with the Promise() constructor;
+    // This has as its argument a function
+    // with two parameters, resolve and reject
+    return new Promise(function(resolve, reject) {
+      // Standard XHR to load an file
+      var request = new XMLHttpRequest();
+      request.open('GET', url);
+      request.responseType = 'blob';
+      // When the request loads, check whether it was successful
+      request.onload = function() {
+        if (request.status === 200) {
+        // If successful, resolve the promise by passing back the request response
+          resolve(request.response);
+        } else {
+        // If it fails, reject the promise with a error message
+          reject(Error('File didn\'t load successfully; error code:' + request.statusText));
+        }
+      };
+      request.onerror = function() {
+      // Also deal with the case when the entire request fails to begin with
+      // This is probably a network error, so reject the promise with an appropriate message
+          reject(Error('There was a network error.'));
+      };
+      // Send the request
+      request.send();
+    });
+  }
 
 /*
 function testFingerprints ()
@@ -115,6 +143,19 @@ void testSimilarity (void)
    $("div.ts1").text('ones1=' + indigo.CountBits(fp1) +', ones2=' + indigo.CountBits(fp2) + ', ones_common=' + indigo.CommonBits(fp1, fp2));
    $("div.ts2").text(indigo.Similarity(mol1, mol2, 0));
    $("div.ts3").text(indigo.Similarity(fp1, fp2, "tversky"));
+
+
+  LoadFile('r1-2ap.mol').then(function(response) {
+    // The first runs when the promise resolves, with the request.response
+    // specified within the resolve() method.
+    var fileURL = window.URL.createObjectURL(response);
+    console.log('file url' + fileURL);
+
+    // The second runs when the promise
+    // is rejected, and logs the Error specified with the reject() method.
+  }, function(Error) {
+    console.log(Error);
+  });
 
       });
     </script>
