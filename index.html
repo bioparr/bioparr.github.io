@@ -61,14 +61,19 @@ function testFingerprints ()
 //	   Module.ccall('indigoSetOption', null, ['string', 'string'], ['render-output-format', 'png']);
 //	   Module.ccall('indigoRenderToFile', null, ['number', 'string'], [mol,'query1.png']);
 
-	//testFingerprints 
+
            const indigo = {
 	      LoadMolecule: Module.cwrap('indigoLoadMoleculeFromString', 'number', ['string']),
 	      LoadQueryMolecule: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['string']),
               Fingerprint: Module.cwrap('indigoFingerprint', 'number', ['number','string']),
               Molfile: Module.cwrap('indigoMolfile','string', ['number']),
-	      ToString:	Module.cwrap('indigoToString','string', ['number'])
+	      ToString:	Module.cwrap('indigoToString','string', ['number']),
+	      CountBits: Module.cwrap('indigoCountBits','number', ['number']),
+	      CommonBits: Module.cwrap('indigoCommonBits','number', ['number','number']),
+	      Similarity: Module.cwrap('indigoSimilarity','number', ['number','number','string'])
 	    };
+
+	//testFingerprints 
 
 	var mol = indigo.LoadMolecule("C1C=CC=CC=1N(C)CO");
 	console.log(mol);
@@ -83,6 +88,33 @@ function testFingerprints ()
         $("div.t1").text(indigo.ToString(fp));
         $("div.t2").text(indigo.ToString(qfp));
 
+	// testSimilarity 
+/*
+void testSimilarity (void)
+{
+   int mol1 = indigoLoadMoleculeFromString("C1C=CC=CC=1NO");
+   int mol2 = indigoLoadMoleculeFromString("C1C=CC=CC=1NP");
+
+   int fp1 = indigoFingerprint(mol1, "sub");
+   int fp2 = indigoFingerprint(mol2, "sub");
+
+   printf("ones1=%d, ones2=%d, ones_common=%d\n", 
+           indigoCountBits(fp1), indigoCountBits(fp2),
+           indigoCommonBits(fp1, fp2));
+
+   printf("%f\n", indigoSimilarity(mol1, mol2, 0));
+   printf("%f\n", indigoSimilarity(fp1, fp2, "tversky"));
+}
+*/
+   var mol1 = indigo.LoadMolecule("C1C=CC=CC=1NO");
+   var mol2 = indigo.LoadMolecule("C1C=CC=CC=1NP");
+
+   var fp1 = indigo.Fingerprint(mol1, "sub");
+   var fp2 = indigo.Fingerprint(mol2, "sub");
+
+   $("div.ts1").text('ones1=' + indigo.CountBits(fp1) +', ones2=' + indigo.CountBits(fp2) + ', ones_common=' + indigo.CommonBits(fp1, fp2));
+   $("div.ts2").text(indigo.Similarity(mol1, mol2, 0));
+   $("div.ts3").text(indigo.Similarity(fp1, fp2, "tversky"));
 
       });
     </script>
@@ -98,8 +130,12 @@ function testFingerprints ()
     <div class="mass"></div>
     <h2>Molecule file</h2>
     <div class="molfile"></div>
-    <h2>TestFingerprints</h2>
+    <h2>Test Fingerprints</h2>
     <div class="t1"></div>
     <div class="t2"></div>
+    <h2>Test Similarity</h2>
+    <div class="ts1"></div>
+    <div class="ts2"></div>
+    <div class="ts3"></div>
   </body>
 </html>
