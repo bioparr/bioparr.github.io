@@ -98,7 +98,10 @@ function testFingerprints ()
 	      ToString:	Module.cwrap('indigoToString','string', ['number']),
 	      CountBits: Module.cwrap('indigoCountBits','number', ['number']),
 	      CommonBits: Module.cwrap('indigoCommonBits','number', ['number','number']),
-	      Similarity: Module.cwrap('indigoSimilarity','number', ['number','number','string'])
+	      Similarity: Module.cwrap('indigoSimilarity','number', ['number','number','string']),
+	      SetTautomerRule: Module.cwrap('indigoSetTautomerRule','number', ['number','string','string']),
+	      Aromatize: Module.cwrap('indigoAromatize','number', ['number']),
+	      ExactMatch: Module.cwrap('indigoExactMatch','number', ['number','number','string'])
 	    };
 
 	//testFingerprints 
@@ -145,12 +148,31 @@ void testSimilarity (void)
    $("div.ts3").text(indigo.Similarity(fp1, fp2, "tversky"));
 
 
+// test ExactMatch 
+
+   indigo.SetTautomerRule(1, "N,O,P,S,As,Se,Sb,Te", "N,O,P,S,As,Se,Sb,Te");
+   indigo.SetTautomerRule(2, "0C", "N,O,P,S");
+   indigo.SetTautomerRule(3, "1C", "N,O");
+
+   int mol = indigo.LoadMolecule("OC1=C2C=CC=CC2=CCC1");
+   int mol2 = indigo.LoadMolecul("O=C1CCCC2=C1C=CC=C2");
+   
+   indigo.Aromatize(mol2);
+
+   //indigoClearCisTrans(mol);
+   //if (indigoExactMatch(mol, mol2, "ALL -ELE") == 0)
+   if (indigo.ExactMatch(mol, mol2, "") == 0)
+      console.log("not matched");
+   else
+      console.log("matched");
+ 
+
   LoadFile('r1-2ap.mol').then(function(response) {
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
  //   var fileURL = window.URL.createObjectURL(response);
-   var view   = new Int8Array(response);
-    console.log('file url :' + view.toString());
+//   var view   = new Int8Array(response);
+//    console.log('file url :' + view.toString());
 
     // The second runs when the promise
     // is rejected, and logs the Error specified with the reject() method.
@@ -179,5 +201,9 @@ void testSimilarity (void)
     <div class="ts1"></div>
     <div class="ts2"></div>
     <div class="ts3"></div>
+    <h2>Test ExactMatch </h2>
+    <div class="te1"></div>
+    <div class="te2"></div>
+    <div class="te3"></div>
   </body>
 </html>
