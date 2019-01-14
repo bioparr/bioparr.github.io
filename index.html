@@ -149,7 +149,8 @@ void testSimilarity (void)
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
  //   var fileURL = window.URL.createObjectURL(response);
-    console.log('file url' + response.toString());
+   var view   = new Int8Array(response);
+    console.log('file url :' + view.toString());
 
     // The second runs when the promise
     // is rejected, and logs the Error specified with the reject() method.
