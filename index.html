@@ -154,8 +154,8 @@ void testSimilarity (void)
    indigo.SetTautomerRule(2, "0C", "N,O,P,S");
    indigo.SetTautomerRule(3, "1C", "N,O");
 
-   int mol = indigo.LoadMolecule("OC1=C2C=CC=CC2=CCC1");
-   int mol2 = indigo.LoadMolecul("O=C1CCCC2=C1C=CC=C2");
+   var mol = indigo.LoadMolecule("OC1=C2C=CC=CC2=CCC1");
+   var mol2 = indigo.LoadMolecul("O=C1CCCC2=C1C=CC=C2");
    
    indigo.Aromatize(mol2);
 
@@ -166,6 +166,40 @@ void testSimilarity (void)
    else
       console.log("matched");
  
+
+//test ReactionExactMatch 
+/*
+void testReactionExactMatch (void)
+{
+   //int rxn1 = indigoLoadReactionFromString("[13C:1]>>N[C]");
+   //int rxn2 = indigoLoadReactionFromString("[C:2]>>[C:2]N");
+   int rxn1 = indigoLoadReactionFromString("[C@](C)([OH:1])N>>C[OH:1]");
+   int rxn2 = indigoLoadReactionFromString("[C@@](C)(O)N>>CO");
+   int match = indigoExactMatch(rxn1, rxn2, "AAM");
+
+   if (match)
+   {
+      int item, iter = indigoIterateMolecules(rxn1);
+      while ((item = indigoNext(iter)) != 0)
+      {
+         int item2, iter2 = indigoIterateAtoms(item);
+         int item3, iter3 = indigoIterateBonds(item);
+
+         printf("mol %d:\n", indigoIndex(item));
+         while ((item2 = indigoNext(iter2)) != 0)
+         {
+            printf("atom %d -> %d\n", indigoIndex(item2), indigoIndex(indigoMapAtom(match, item2)));
+         }
+         while ((item3 = indigoNext(iter3)) != 0)
+         {
+            printf("bond %d -> %d\n", indigoIndex(item3), indigoIndex(indigoMapBond(match, item3)));
+         }
+      }
+   }
+   else
+      printf("reactions not matched\n");
+}
+*/
 
   LoadFile('r1-2ap.mol').then(function(response) {
     // The first runs when the promise resolves, with the request.response
