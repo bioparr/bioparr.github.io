@@ -208,8 +208,10 @@ void testReactionExactMatch (void)
 }
 */
 
-   var rxn1 = indigo.LoadReaction("[C@](C)([OH:1])N>>C[OH:1]");
-   var rxn2 = indigo.LoadReaction("[C@@](C)(O)N>>CO");
+   var rxn1 = indigo.LoadReaction("[13C:1]>>N[C]");
+   var rxn2 = indigo.LoadReaction("[C:2]>>[C:2]N");
+//   var rxn1 = indigo.LoadReaction("[C@](C)([OH:1])N>>C[OH:1]");
+//   var rxn2 = indigo.LoadReaction("[C@@](C)(O)N>>CO");
    var mat = indigo.ExactMatch(rxn1, rxn2, "AAM");
 
    if (mat)
