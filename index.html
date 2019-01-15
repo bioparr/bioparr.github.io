@@ -102,7 +102,13 @@ function testFingerprints ()
 	      Similarity: Module.cwrap('indigoSimilarity','number', ['number','number','string']),
 	      SetTautomerRule: Module.cwrap('indigoSetTautomerRule','number', ['number','string','string']),
 	      Aromatize: Module.cwrap('indigoAromatize','number', ['number']),
-	      ExactMatch: Module.cwrap('indigoExactMatch','number', ['number','number','string'])
+	      Next: Module.cwrap('indigoNext','number', ['number']),
+	      IterateMolecules: Module.cwrap('indigoIterateMolecules','number', ['number']),
+	      IterateAtoms: Module.cwrap('indigoIterateAtoms','number', ['number']),
+	      Index: Module.cwrap('indigoIndex','number', ['number']),
+	      ExactMatch: Module.cwrap('indigoExactMatch','number', ['number','number','string']),
+	      MapBond: Module.cwrap('indigoMapBond','number', ['number','number']),
+	      MapAtom: Module.cwrap('indigoMapAtom','number', ['number','number'])
 	    };
 
 	//testFingerprints 
@@ -201,6 +207,33 @@ void testReactionExactMatch (void)
       printf("reactions not matched\n");
 }
 */
+
+   var rxn1 = indigo.LoadReaction("[C@](C)([OH:1])N>>C[OH:1]");
+   var rxn2 = indigo.LoadReaction("[C@@](C)(O)N>>CO");
+   var mat = indigo.ExactMatch(rxn1, rxn2, "AAM");
+
+   if (mat)
+   {
+      var ite, iter = indigo.IterateMolecules(rxn1);
+      while ((ite = indigo.Next(iter)) != 0)
+      {
+         var item2, iter2 = indigo.IterateAtoms(item);
+         var item3, iter3 = indigo.IterateBonds(item);
+
+         console.log("mol " + indigo.Index(item));
+         while ((item2 = indigo.Next(iter2)) != 0)
+         {
+            console.log("atom " + indigo.Index(item2)+ " -> " + indigo.Index(indigo.MapAtom(match, item2)));
+         }
+         while ((item3 = indigoNext(iter3)) != 0)
+         {
+            console.log("bond " + indigo.Index(item3)+ " -> " + indigo.Index(indigo.MapBond(match, item3)));
+         }
+      }
+   }
+   else
+      console.log("reactions not matched");
+
 
   LoadFile('r1-2ap.mol').then(function(response) {
     // The first runs when the promise resolves, with the request.response
