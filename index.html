@@ -92,6 +92,7 @@ function testFingerprints ()
 
            const indigo = {
 	      LoadMolecule: Module.cwrap('indigoLoadMoleculeFromString', 'number', ['string']),
+	      LoadReaction: Module.cwrap('indigoLoadReactionFromString', 'number', ['string']),
 	      LoadQueryMolecule: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['string']),
               Fingerprint: Module.cwrap('indigoFingerprint', 'number', ['number','string']),
               Molfile: Module.cwrap('indigoMolfile','string', ['number']),
@@ -155,7 +156,7 @@ void testSimilarity (void)
    indigo.SetTautomerRule(3, "1C", "N,O");
 
    var mol = indigo.LoadMolecule("OC1=C2C=CC=CC2=CCC1");
-   var mol2 = indigo.LoadMolecul("O=C1CCCC2=C1C=CC=C2");
+   var mol2 = indigo.LoadMolecule("O=C1CCCC2=C1C=CC=C2");
    
    indigo.Aromatize(mol2);
 
