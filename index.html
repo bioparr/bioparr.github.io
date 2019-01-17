@@ -216,7 +216,7 @@ void testReactionExactMatch (void)
 
    console.log(mat);
 
-   if (mat)
+   if (!mat)
    {
       var ite, iter = indigo.IterateMolecules(rxn1);
       while ((ite = indigo.Next(iter)) != 0)
