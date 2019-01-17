@@ -221,17 +221,17 @@ void testReactionExactMatch (void)
       var ite, iter = indigo.IterateMolecules(rxn1);
       while ((ite = indigo.Next(iter)) != 0)
       {
-         var item2, iter2 = indigo.IterateAtoms(item);
-         var item3, iter3 = indigo.IterateBonds(item);
+         var item2, iter2 = indigo.IterateAtoms(ite);
+         var item3, iter3 = indigo.IterateBonds(ite);
 
-         console.log("mol " + indigo.Index(item));
+         console.log("mol " + indigo.Index(ite));
          while ((item2 = indigo.Next(iter2)) != 0)
          {
-            console.log("atom " + indigo.Index(item2)+ " -> " + indigo.Index(indigo.MapAtom(match, item2)));
+            console.log("atom " + indigo.Index(item2)+ " -> " + indigo.Index(indigo.MapAtom(mat, item2)));
          }
          while ((item3 = indigoNext(iter3)) != 0)
          {
-            console.log("bond " + indigo.Index(item3)+ " -> " + indigo.Index(indigo.MapBond(match, item3)));
+            console.log("bond " + indigo.Index(item3)+ " -> " + indigo.Index(indigo.MapBond(mat, item3)));
          }
       }
    }
