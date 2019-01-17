@@ -214,6 +214,8 @@ void testReactionExactMatch (void)
 //   var rxn2 = indigo.LoadReaction("[C@@](C)(O)N>>CO");
    var mat = indigo.ExactMatch(rxn1, rxn2, "AAM");
 
+   console.log(mat);
+
    if (mat)
    {
       var ite, iter = indigo.IterateMolecules(rxn1);
