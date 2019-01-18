@@ -217,7 +217,7 @@ void testReactionExactMatch (void)
 
    console.log(mat);
 
-   if (!mat)
+   if (mat)
    {
       var ite, iter = indigo.IterateMolecules(rxn1);
       while ((ite = indigo.Next(iter)) != 0)
@@ -244,7 +244,9 @@ void testReactionExactMatch (void)
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
  //   var fileURL = window.URL.createObjectURL(response);
-//   var view   = new Int8Array(response);
+   var enc = new TextDecoder("utf-8");
+   var arr8   = new Int8Array(response);
+  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
 
     // The second runs when the promise
