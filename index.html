@@ -230,7 +230,7 @@ void testReactionExactMatch (void)
          {
             console.log("atom " + indigo.Index(item2)+ " -> " + indigo.Index(indigo.MapAtom(mat, item2)));
          }
-         while ((item3 = indigoNext(iter3)) != 0)
+         while ((item3 = indigo.Next(iter3)) != 0)
          {
             console.log("bond " + indigo.Index(item3)+ " -> " + indigo.Index(indigo.MapBond(mat, item3)));
          }
