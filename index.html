@@ -132,7 +132,7 @@ function testFingerprints ()
 
 
            const indigo = {
-	      LoadMoleculeFromBuffer: Module.cwrap('indigoLoadMoleculeFromBuffer', 'number', ['string', 'number']),
+	      LoadMoleculeFromBuffer: Module.cwrap('indigoLoadMoleculeFromBuffer', 'number', ['number', 'number']),
 	      LoadMolecule: Module.cwrap('indigoLoadMoleculeFromString', 'number', ['string']),
 	      LoadReaction: Module.cwrap('indigoLoadReactionFromString', 'number', ['string']),
 	      LoadQueryMolecule: Module.cwrap('indigoLoadQueryMoleculeFromString', 'number', ['string']),
@@ -282,9 +282,12 @@ void testReactionExactMatch (void)
       console.log("reactions not matched");
 
 	var arr = LoadFileAsArray('r1-2ap.mol');
-
-	var mol = indigo.LoadMoleculeFromBuffer(arr.buffer, arr.length);
+	var buf = Module._malloc(arr.length*arr.BYTES_PER_ELEMENT);
+	console.log(buf);
+	Module.HEAPU8.set(arr, buf);
+	var mol = indigo.LoadMoleculeFromBuffer(buf, arr.length);
         $("div.tl1").text(indigo.ToString(mol));
+	Module._free(buf);
 	
       console.log(mol);
 
