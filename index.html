@@ -55,6 +55,26 @@ function loadIndigo()
     });
   }
 
+
+ function LoadFileAsString(url) {
+  LoadFile(url).then(function(response) {
+    // The first runs when the promise resolves, with the request.response
+    // specified within the resolve() method.
+ //   var fileURL = window.URL.createObjectURL(response);
+   var enc = new TextDecoder("utf-8");
+   var arr8   = new Int8Array(response);
+  return enc.decode(arr8);
+
+//  console.log(enc.decode(arr8));
+//    console.log('file url :' + view.toString());
+
+    // The second runs when the promise
+    // is rejected, and logs the Error specified with the reject() method.
+  }, function(Error) {
+    console.log(Error);
+    return null;
+  });
+}
 /*
 function testFingerprints ()
 {
@@ -240,20 +260,11 @@ void testReactionExactMatch (void)
       console.log("reactions not matched");
 
 
-  LoadFile('r1-2ap.mol').then(function(response) {
-    // The first runs when the promise resolves, with the request.response
-    // specified within the resolve() method.
- //   var fileURL = window.URL.createObjectURL(response);
-   var enc = new TextDecoder("utf-8");
-   var arr8   = new Int8Array(response);
-  console.log(enc.decode(arr8));
-//    console.log('file url :' + view.toString());
+	var mol = indigo.LoadMolecule(LoadFileAsString('r1-2ap.mol'));
+        $("div.tl1").text(indigo.ToString(mol));
+	
+      console.log(mol);
 
-    // The second runs when the promise
-    // is rejected, and logs the Error specified with the reject() method.
-  }, function(Error) {
-    console.log(Error);
-  });
 
       });
     </script>
@@ -280,5 +291,7 @@ void testReactionExactMatch (void)
     <div class="te1"></div>
     <div class="te2"></div>
     <div class="te3"></div>
+    <h2>Test Load</h2>
+    <div class="tl1"></div>
   </body>
 </html>
