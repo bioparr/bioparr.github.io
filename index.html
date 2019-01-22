@@ -83,7 +83,11 @@ function loadIndigo()
  //   var fileURL = window.URL.createObjectURL(response);
    var enc = new TextDecoder("utf-8");
    var arr8   = new Int8Array(response);
-   return arr8;
+	var buf = Module._malloc(arr8.length*arr8.BYTES_PER_ELEMENT);
+	console.log(buf);
+	Module.HEAPU8.set(arr, buf);
+
+   return buf8;
 
 //  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
@@ -282,9 +286,6 @@ void testReactionExactMatch (void)
       console.log("reactions not matched");
 
 	var arr = LoadFileAsArray('r1-2ap.mol');
-	var buf = Module._malloc(arr.length*arr.BYTES_PER_ELEMENT);
-	console.log(buf);
-	Module.HEAPU8.set(arr, buf);
 	var mol = indigo.LoadMoleculeFromBuffer(buf, arr.length);
         $("div.tl1").text(indigo.ToString(mol));
 	Module._free(buf);
