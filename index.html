@@ -85,7 +85,7 @@ function loadIndigo()
    var arr8   = new Int8Array(response);
 	var buf = Module._malloc(arr8.length*arr8.BYTES_PER_ELEMENT);
 	console.log(buf);
-	Module.HEAPU8.set(arr, buf);
+	Module.HEAPU8.set(arr8, buf);
 
    return buf;
 
@@ -285,8 +285,8 @@ void testReactionExactMatch (void)
    else
       console.log("reactions not matched");
 
-	var arr = LoadFileAsArray('r1-2ap.mol');
-	var mol = indigo.LoadMoleculeFromBuffer(buf, arr.length);
+	var buf = LoadFileAsArray('r1-2ap.mol');
+	var mol = indigo.LoadMoleculeFromBuffer(buf,buf.length);
         $("div.tl1").text(indigo.ToString(mol));
 	Module._free(buf);
 	
