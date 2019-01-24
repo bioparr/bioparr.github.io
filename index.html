@@ -285,8 +285,9 @@ void testReactionExactMatch (void)
    else
       console.log("reactions not matched");
 
-	var buf = LoadFileAsArray('r1-2ap.mol');
-	var mol = indigo.LoadMoleculeFromBuffer(buf,buf.length);
+	var b = LoadFileAsArray('r1-2ap.mol');
+      console.log(buf);
+	var mol = indigo.LoadMoleculeFromBuffer(b.buffer,b.length);
         $("div.tl1").text(indigo.ToString(mol));
 	Module._free(buf);
 	
