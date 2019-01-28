@@ -77,7 +77,7 @@ function loadIndigo()
 }
 
  function LoadFileAsArray(url) {
-var ret = null;
+  var pr = new Promise(function(resolve, reject) {
   LoadFile(url).then(function(response) {
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
@@ -88,8 +88,8 @@ var ret = null;
 	console.log(buf);
 	Module.HEAPU8.set(arr8, buf);
 
-   ret =  {buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT};
-
+   console.log(ret);
+   resolve({buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT})
 //  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
 
@@ -97,9 +97,11 @@ var ret = null;
     // is rejected, and logs the Error specified with the reject() method.
   }, function(Error) {
     console.log(Error);
+    reject({buffer:null, length:null})
   });
  console.log(ret);
- return ret;
+ var result = await pr;
+ return result;
 }
 
 /*
