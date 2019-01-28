@@ -76,7 +76,7 @@ function loadIndigo()
   });
 }
 
- function LoadFileAsArray(url) {
+async  function LoadFileAsArray(url) {
   var pr = new Promise(function(resolve, reject) {
   LoadFile(url).then(function(response) {
     // The first runs when the promise resolves, with the request.response
