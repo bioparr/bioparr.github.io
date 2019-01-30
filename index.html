@@ -101,7 +101,7 @@ async  function LoadFileAsArray(url) {
   });
  });
  var result = await pr;
- return result.then((data) => { return data; });
+ return result().then((data) => { return data; });
 }
 
 /*
