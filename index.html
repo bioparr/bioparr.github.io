@@ -88,7 +88,7 @@ async  function LoadFileAsArray(url) {
 	console.log(buf);
 	Module.HEAPU8.set(arr8, buf);
 
-   console.log(ret);
+   console.log({buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT});
    resolve({buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT})
 //  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
@@ -99,7 +99,6 @@ async  function LoadFileAsArray(url) {
     console.log(Error);
     reject({buffer:null, length:null})
   });
- console.log(ret);
  });
  var result = await pr;
  return result;
