@@ -82,7 +82,7 @@ async  function LoadFileAsArray(url) {
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
  //   var fileURL = window.URL.createObjectURL(response);
-   var enc = new TextDecoder("utf-8");
+//   var enc = new TextDecoder("utf-8");
    var arr8   = new Int8Array(response);
 	var buf = Module._malloc(arr8.length*arr8.BYTES_PER_ELEMENT);
 	console.log(buf);
@@ -101,7 +101,7 @@ async  function LoadFileAsArray(url) {
   });
  });
  var result = await pr;
- return result;
+ return result.then((data) => { return data; });
 }
 
 /*
