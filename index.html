@@ -76,7 +76,8 @@ function loadIndigo()
   });
 }
 
-async  function LoadFileAsArray(url) {
+async  function LoadFileAsArray(url) { 
+  var ret  = {buffer:null, length:null};
   var pr = new Promise(function(resolve, reject) {
   LoadFile(url).then(function(response) {
     // The first runs when the promise resolves, with the request.response
@@ -88,7 +89,7 @@ async  function LoadFileAsArray(url) {
 	console.log(buf);
 	Module.HEAPU8.set(arr8, buf);
 
-   console.log({buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT});
+   ret = {buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT};
    resolve({buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT})
 //  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
@@ -101,7 +102,7 @@ async  function LoadFileAsArray(url) {
   });
  });
  var result = await pr;
- return result().then((data) => { return data; });
+ return ret;
 }
 
 /*
