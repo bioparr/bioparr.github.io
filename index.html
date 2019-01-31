@@ -102,6 +102,7 @@ async  function LoadFileAsArray(url) {
   });
  });
  var result = await pr;
+ console.log(ret);
  return ret;
 }
 
@@ -294,7 +295,7 @@ void testReactionExactMatch (void)
       console.log(bbb);
 	var mol = indigo.LoadMoleculeFromBuffer(bbb.buffer,bbb.length);
         $("div.tl1").text(indigo.ToString(mol));
-	Module._free(buf);
+	Module._free(bbb.buffer);
 	
       console.log(mol);
 
