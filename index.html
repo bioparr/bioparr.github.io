@@ -293,8 +293,10 @@ void testReactionExactMatch (void)
 
 	var bbb = LoadFileAsArray('r1-2ap.mol');
       console.log(bbb);
+      console.log(bbb.buffer);
+      console.log(bbb.length);
 	var mol = indigo.LoadMoleculeFromBuffer(bbb.buffer,bbb.length);
-        $("div.tl1").text(indigo.ToString(mol));
+        $("div.tl1").text(indigo.Molfile(mol));
 	Module._free(bbb.buffer);
 	
       console.log(mol);
