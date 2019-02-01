@@ -187,7 +187,17 @@ function testFingerprints ()
 	      Index: Module.cwrap('indigoIndex','number', ['number']),
 	      ExactMatch: Module.cwrap('indigoExactMatch','number', ['number','number','string']),
 	      MapBond: Module.cwrap('indigoMapBond','number', ['number','number']),
-	      MapAtom: Module.cwrap('indigoMapAtom','number', ['number','number'])
+	      MapAtom: Module.cwrap('indigoMapAtom','number', ['number','number']),
+	      CreateArray: Module.cwrap('indigoCreateArray','number', []),
+	      ArrayAdd: Module.cwrap('indigoArrayAdd','number', ['number','number']),
+	      At: Module.cwrap('indigoAt','number', ['number','number']),
+	      Count: Module.cwrap('indigoCount','number', ['number']),
+	      Clear: Module.cwrap('indigoClear','number', ['number']),
+	      IterateArray: Module.cwrap('indigoIterateArray','number', ['number']),
+	      Free: Module.cwrap('indigoFree','number', ['number'])
+	      Clone: Module.cwrap('indigoClone','number', ['number'])
+	      CountReferences: Module.cwrap('indigoCountReferences','number', []),
+	      CanonicalSmiles:	Module.cwrap('indigoCanonicalSmiles','string', ['number'])
 	    };
 
 	//testFingerprints 
@@ -337,6 +347,55 @@ void testReactionExactMatch (void)
 })
 
       });
+
+// testArrays ()
+   var arr1 = indigo.CreateArray();
+   var arr2 = indigo.CreateArray();
+
+   var mol1 = indigo.LoadMolecule("C1C(COCOC)CC(N)(Cl)C1");
+   var mol2 = indigo.LoadMolecule("P(C)C");
+   var arr2_0, arr2_1, iter, iter2, ii;
+
+   indigo.ArrayAdd(arr1, mol1);
+   indigo.ArrayAdd(arr1, mol2);
+   indigo.ArrayAdd(arr2, arr1);
+   indigo.ArrayAdd(arr2, arr1);
+   indigo.ArrayAdd(arr2, arr1);
+
+   arr2_0 = indigo.At(arr2, 0);
+   arr2_1 = indigo.At(arr2, 1);
+   indigo.ArrayAdd(arr2_0, mol2);
+
+   indigo.Clear(arr2_1);
+   indigo.Free(arr2_0);
+   indigo.Free(arr2_1);
+   indigo.Free(mol1);
+   indigo.Free(mol2);
+
+   iter = indigo.IterateArray(arr2);
+
+   while ((ii = indigo.Next(iter)))
+   {
+      var ii2;
+      console.log("element " + indigo.Index(ii));
+      console.log("  size = " + indigo.Count(ii));
+      iter2 = indigo.IterateArray(ii);
+      while ((ii2 = indigo.Next(iter2)))
+      {
+         console.log("  element " + indigo.Index(ii2) " : "+ indigo.CanonicalSmiles(ii2));
+         indigo.Free(ii2);
+      }
+      indigo.Free(iter2);
+      indigo.Free(ii);
+   }
+   indigo.Free(iter);
+   indigo.Free(arr1);
+   indigo.Free(arr2);
+   console.log(" " +indigoCountReferences()+ "objects left");
+   $("div.ta1").text(" " +indigoCountReferences()+ "objects left");
+
+/// ---------
+
     </script>
   </head>
 
@@ -363,5 +422,7 @@ void testReactionExactMatch (void)
     <div class="te3"></div>
     <h2>Test Load</h2>
     <div class="tl1"></div>
+    <h2>Test Arrays</h2>
+    <div class="ta1"></div>
   </body>
 </html>
