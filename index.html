@@ -106,6 +106,32 @@ async  function LoadFileAsArray(url) {
  return ret;
 }
 
+async  function LoadFileAsArray2(url) { 
+  return new Promise(function(resolve, reject) {
+  LoadFile(url).then(function(response) {
+    // The first runs when the promise resolves, with the request.response
+    // specified within the resolve() method.
+ //   var fileURL = window.URL.createObjectURL(response);
+//   var enc = new TextDecoder("utf-8");
+   var arr8   = new Int8Array(response);
+	var buf = Module._malloc(arr8.length*arr8.BYTES_PER_ELEMENT);
+	console.log(buf);
+	Module.HEAPU8.set(arr8, buf);
+
+   ret = {buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT};
+   resolve({buffer:buf, length:arr8.length*arr8.BYTES_PER_ELEMENT})
+//  console.log(enc.decode(arr8));
+//    console.log('file url :' + view.toString());
+
+    // The second runs when the promise
+    // is rejected, and logs the Error specified with the reject() method.
+  }, function(Error) {
+    console.log(Error);
+    reject({buffer:null, length:null})
+  });
+ });
+}
+
 /*
 function testFingerprints ()
 {
@@ -301,6 +327,14 @@ void testReactionExactMatch (void)
 	
       console.log(mol);
 
+      LoadFileAsArray2('r1-2ap.mol').then( x => {
+      var mol = indigo.LoadMoleculeFromBuffer(x.buffer,x.length);
+        $("div.tl1").text(indigo.Molfile(mol));
+	Module._free(x.buffer);
+
+      console.log(mol);
+
+})
 
       });
     </script>
