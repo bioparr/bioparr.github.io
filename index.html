@@ -382,7 +382,7 @@ void testReactionExactMatch (void)
       iter2 = indigo.IterateArray(ii);
       while ((ii2 = indigo.Next(iter2)))
       {
-         console.log("  element " + indigo.Index(ii2) " : "+ indigo.CanonicalSmiles(ii2));
+         console.log("  element " + indigo.Index(ii2) + " : "+ indigo.CanonicalSmiles(ii2));
          indigo.Free(ii2);
       }
       indigo.Free(iter2);
