@@ -196,6 +196,8 @@ function testFingerprints ()
 	      IterateArray: Module.cwrap('indigoIterateArray','number', ['number']),
 	      Free: Module.cwrap('indigoFree','number', ['number']),
 	      Clone: Module.cwrap('indigoClone','number', ['number']),
+	      BondOrder: Module.cwrap('indigoBondOrder','number', ['number']),
+	      BondStereo: Module.cwrap('indigoBondStereo','number', ['number']),
 	      CountReferences: Module.cwrap('indigoCountReferences','number', []),
 	      CanonicalSmiles:	Module.cwrap('indigoCanonicalSmiles','string', ['number'])
 	    };
@@ -389,10 +391,31 @@ void testReactionExactMatch (void)
    indigo.Free(iter);
    indigo.Free(arr1);
    indigo.Free(arr2);
-   console.log(" " +indigoCountReferences()+ "objects left");
-   $("div.ta1").text(" " +indigoCountReferences()+ "objects left");
+   console.log(" " +indigo.CountReferences()+ "objects left");
+   $("div.ta1").text(" " +indigo.CountReferences()+ "objects left");
 
 /// ---------
+
+//  test BondsIterator 
+{
+
+   indigo.SetOption("ignore-stereochemistry-errors", "on");
+
+      LoadFileAsArray2('cistrans-single-either.mol').then( x => {
+      var mol = indigo.LoadMoleculeFromBuffer(x.buffer,x.length);
+	Module._free(x.buffer);
+   var iter, item;
+   iter = indigo.IterateBonds(mol);
+
+   while ((item = indigo.Next(iter)))
+   {
+      console.log("bond #" + indigo.Index(item) + ": order "+ indigo.BondOrder(item) +
+      ", stereo" + indigo.BondStereo(item));
+   }
+
+});
+
+}
 
       });
 
