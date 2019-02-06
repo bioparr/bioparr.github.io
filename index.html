@@ -199,7 +199,8 @@ function testFingerprints ()
 	      BondOrder: Module.cwrap('indigoBondOrder','number', ['number']),
 	      BondStereo: Module.cwrap('indigoBondStereo','number', ['number']),
 	      CountReferences: Module.cwrap('indigoCountReferences','number', []),
-	      CanonicalSmiles:	Module.cwrap('indigoCanonicalSmiles','string', ['number'])
+	      CanonicalSmiles:	Module.cwrap('indigoCanonicalSmiles','string', ['number']),
+              SetOption: Module.cwrap('indigoSetOption', 'number', ['string','string'])
 	    };
 
 	//testFingerprints 
