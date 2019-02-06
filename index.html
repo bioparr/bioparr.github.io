@@ -200,7 +200,11 @@ function testFingerprints ()
 	      BondStereo: Module.cwrap('indigoBondStereo','number', ['number']),
 	      CountReferences: Module.cwrap('indigoCountReferences','number', []),
 	      CanonicalSmiles:	Module.cwrap('indigoCanonicalSmiles','string', ['number']),
-              SetOption: Module.cwrap('indigoSetOption', 'number', ['string','string'])
+              SetOption: Module.cwrap('indigoSetOption', 'number', ['string','string']),
+              SetOptionInt: Module.cwrap('indigoSetOptionInt', 'number', ['string','number']),
+              SetOptionBool: Module.cwrap('indigoSetOptionBool', 'number', ['string','number']),
+              SetOptionFloat: Module.cwrap('indigoSetOptionFloat', 'number', ['string','number']),
+              ResetOptions: Module.cwrap('indigoResetOptions', 'number', [])
 	    };
 
 	//testFingerprints 
