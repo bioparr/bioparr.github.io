@@ -427,9 +427,9 @@ void testReactionExactMatch (void)
 
    indigo.SetOption("ignore-stereochemistry-errors", "on");
 
-      LoadFileAsString('cistrans-single-either.mol').then( x => {
-      var mol = indigo.LoadMolecule(x);
-      console.log(x);
+    var x =  LoadFileAsString('cistrans-single-either.mol');
+    console.log(x);
+    var mol = indigo.LoadMolecule(x);
    var iter, item;
    iter = indigo.IterateBonds(mol);
 
@@ -438,8 +438,6 @@ void testReactionExactMatch (void)
       console.log("bond #" + indigo.Index(item) + ": order "+ indigo.BondOrder(item) +
       ", stereo" + indigo.BondStereo(item));
    }
-
-});
 
 }
 
