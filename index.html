@@ -64,7 +64,7 @@ function loadIndigo()
  //   var fileURL = window.URL.createObjectURL(response);
    var enc = new TextDecoder("utf-8");
    var arr8   = new Int8Array(response);
-   resolve(enc.decode(arr8))
+   resolve(enc.decode(arr8));
 
 //  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
@@ -73,7 +73,7 @@ function loadIndigo()
     // is rejected, and logs the Error specified with the reject() method.
   }, function(Error) {
     console.log(Error);
-    reject({buffer:null, length:null})
+    reject(null)
   });
  });
 }
