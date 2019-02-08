@@ -57,13 +57,14 @@ function loadIndigo()
 
 
  function LoadFileAsString(url) {
+  return new Promise(function(resolve, reject) {
   LoadFile(url).then(function(response) {
     // The first runs when the promise resolves, with the request.response
     // specified within the resolve() method.
  //   var fileURL = window.URL.createObjectURL(response);
    var enc = new TextDecoder("utf-8");
    var arr8   = new Int8Array(response);
-   return enc.decode(arr8);
+   resolve(enc.decode(arr8))
 
 //  console.log(enc.decode(arr8));
 //    console.log('file url :' + view.toString());
@@ -72,8 +73,9 @@ function loadIndigo()
     // is rejected, and logs the Error specified with the reject() method.
   }, function(Error) {
     console.log(Error);
-    return null;
+    reject({buffer:null, length:null})
   });
+ });
 }
 
 async  function LoadFileAsArray(url) { 
@@ -427,9 +429,9 @@ void testReactionExactMatch (void)
 
    indigo.SetOption("ignore-stereochemistry-errors", "on");
 
-    var x =  LoadFileAsString('cistrans-single-either.mol');
-    console.log(x);
-    var mol = indigo.LoadMolecule(x);
+    var x =  LoadFileAsString('cistrans-single-either.mol').then( x => {
+      console.log(x);
+      var mol = indigo.LoadMolecule(x);
    var iter, item;
    iter = indigo.IterateBonds(mol);
 
@@ -439,6 +441,7 @@ void testReactionExactMatch (void)
       ", stereo" + indigo.BondStereo(item));
    }
 
+});
 }
 
       });
